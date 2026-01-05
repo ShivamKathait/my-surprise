@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -47,3 +47,121 @@
 
 </body>
 </html>
+ -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Pallavi 💖</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;600&display=swap');
+
+  body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fad0c4);
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    color: #fff;
+  }
+
+  h1 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 4rem;
+    margin-top: 50px;
+    text-shadow: 2px 2px #ff3399;
+  }
+
+  #magicBtn {
+    font-size: 28px;
+    padding: 18px 40px;
+    background: #ff66b2;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(255, 51, 153, 0.6);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  #magicBtn:hover {
+    transform: scale(1.15);
+    box-shadow: 0 0 25px rgba(255, 51, 153, 0.9);
+  }
+  #magicBtn:active {
+    background: #ff3399;
+  }
+
+  .heart {
+    position: absolute;
+    font-size: 24px;
+    animation: rise 4s infinite ease-in;
+    opacity: 0.8;
+  }
+
+  @keyframes rise {
+    0% { transform: translateY(0) scale(1); opacity: 0.8; }
+    100% { transform: translateY(-800px) scale(1.8); opacity: 0; }
+  }
+</style>
+</head>
+
+<body>
+
+<h1>✨💖 For Pallavi 💖✨</h1>
+<button id="magicBtn">Tap the Magic! ✨</button>
+
+<!-- confetti -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+
+<!-- audio -->
+<audio id="bgMusic" loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_a790affb6d.mp3?filename=happy-joy-music-10834.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+  const button = document.getElementById("magicBtn");
+  const music = document.getElementById("bgMusic");
+
+  button.addEventListener("click", function() {
+    // start music
+    music.play();
+
+    // confetti blast
+    confetti({
+      particleCount: 300,
+      spread: 180,
+      origin: { y: 0.6 }
+    });
+
+    // hearts animation
+    for (let i = 0; i < 40; i++) {
+      createHeart();
+    }
+
+    // big message reveal
+    setTimeout(() => {
+      alert("✨🌸 Hey Pallavi! 🌸✨\nThis is for YOU — with lots of love! 💖");
+    }, 600);
+  });
+
+  function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.style.left = Math.random() * window.innerWidth + "px";
+    heart.style.fontSize = (20 + Math.random() * 30) + "px";
+    heart.style.color = `hsl(${Math.random()*360}, 100%, 75%)`;
+    heart.innerText = "💖";
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+      heart.remove();
+    }, 4000);
+  }
+</script>
+
+</body>
+</html>
+
