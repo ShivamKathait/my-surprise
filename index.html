@@ -1,54 +1,3 @@
-<!-- <!DOCTYPE html>
-<html>
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Surprise 💖</title>
-  <style>
-    body {
-      text-align: center;
-      font-family: Arial, sans-serif;
-      padding-top: 80px;
-      background: #f0e7ff;
-    }
-    button {
-      font-size: 24px;
-      padding: 15px 30px;
-      background: #ff66b2;
-      color: white;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-    }
-    button:active {
-      background: #ff3399;
-    }
-  </style>
-</head>
-<body>
-
-<h1>Tap for a Surprise! 🎁</h1>
-<button id="magicBtn">Tap Me!</button>
-
-<!-- include the confetti library -->
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
-
-<script>
-  document.getElementById("magicBtn").addEventListener("click", function() {
-    // confetti explosion
-    confetti({
-      particleCount: 200,
-      spread: 100,
-      origin: { y: 0.6 }
-    });
-    
-    alert("✨ Surprise! I made this for you! ✨");
-  });
-</script>
-
-</body>
-</html>
- -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -61,84 +10,80 @@
   body {
     margin: 0;
     padding: 0;
-    background: #ffe6f0;
+    background: linear-gradient(135deg, #ffe6f0, #ffdee9);
     font-family: 'Poppins', sans-serif;
     text-align: center;
     overflow: hidden;
+    color: #d6336c;
   }
 
   h1 {
     font-family: 'Great Vibes', cursive;
     font-size: 4rem;
-    margin-top: 30px;
-    color: #d6336c;
-    text-shadow: 2px 2px #ffa3c4;
+    margin-top: 40px;
+    text-shadow: 2px 2px #ff9ad1;
   }
 
   #magicBtn {
-    margin-top: 20px;
-    font-size: 28px;
-    padding: 18px 40px;
+    margin-top: 18px;
+    font-size: 26px;
+    padding: 16px 38px;
     background: #ff66b2;
     color: white;
     border: none;
-    border-radius: 15px;
+    border-radius: 12px;
     cursor: pointer;
     box-shadow: 0 0 15px rgba(255, 51, 153, 0.6);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
   #magicBtn:hover {
-    transform: scale(1.15);
+    transform: scale(1.12);
     box-shadow: 0 0 25px rgba(255, 51, 153, 0.9);
   }
-  #magicBtn:active {
-    background: #ff3399;
-  }
 
-  .birthday-pics img {
-    width: 70%;
-    max-width: 400px;
+  #birthdayImages img {
     margin: 15px auto;
-    border-radius: 15px;
-    box-shadow: 0 0 20px rgba(255, 102, 178, 0.5);
-    animation: float 6s ease-in-out infinite;
+    width: 250px;
+    max-width: 80%;
+    opacity: 0;
+    transition: opacity 1s ease;
   }
 
-  @keyframes float {
-    0%,100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
+  .visible {
+    opacity: 1 !important;
   }
 </style>
 </head>
 <body>
 
-<h1>✨🎂 Happy Birthday, Pallavi! 🎂✨</h1>
-<p style="font-size: 1.2rem; color:#d6336c;">Tap below for your magical birthday surprise! 🌟</p>
+<h1>🎂 Happy Birthday, <span style="font-size:1.2em;">Pallavi</span>! 🎀</h1>
+<p style="font-size:1.3rem;">Tap for a magical birthday surprise! ✨</p>
 
 <button id="magicBtn">🎈 Tap for Magic! 🎈</button>
 
-<div class="birthday-pics" id="pics"></div>
+<div id="birthdayImages">
+  <!-- lightweight transparent "Happy Birthday" image from a free PNG source -->
+  <img id="img1" src="https://png.pngtree.com/png-clipart/20241019/original/pngtree-3d-happy-birthday-gold-on-transparent-background-png-image_16406774.png" alt="Happy Birthday">
+  <img id="img2" src="https://png.pngtree.com/png-clipart/20220824/original/pngtree-happy-birthday-png-image_8488845.png" alt="Birthday Wishes">
+  <img id="img3" src="https://png.pngtree.com/png-clipart/20250103/original/pngtree-extravagant-golden-cake-for-birthday-parties-png-image_20007473.png" alt="Birthday Cake">
+</div>
 
-<!-- confetti + particle library -->
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 
-<!-- music -->
 <audio id="bgMusic" loop>
   <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_a790affb6d.mp3?filename=happy-joy-music-10834.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-  const button = document.getElementById("magicBtn");
+  const btn = document.getElementById("magicBtn");
   const music = document.getElementById("bgMusic");
-  const picsDiv = document.getElementById("pics");
-
   const images = [
-    "https://images.pexels.com/photos/1157082/pexels-photo-1157082.jpeg",
-    "https://images.pexels.com/photos/2072169/pexels-photo-2072169.jpeg",
-    "https://images.pexels.com/photos/3028993/pexels-photo-3028993.jpeg"
+    document.getElementById("img1"),
+    document.getElementById("img2"),
+    document.getElementById("img3"),
   ];
 
-  button.addEventListener("click", function() {
+  btn.addEventListener("click", function() {
     music.play();
 
     confetti({
@@ -147,25 +92,17 @@
       origin: { y: 0.7 }
     });
 
-    showBirthdayPics();
-
-    setTimeout(() => {
-      alert("✨🌸 Dear Pallavi, Happy Birthday! 🌸✨\nWishing you joy, love, and magical moments! 💖");
-    }, 700);
-  });
-
-  function showBirthdayPics() {
-    picsDiv.innerHTML = "";
-    images.forEach(src => {
-      const img = document.createElement("img");
-      img.src = src;
-      picsDiv.appendChild(img);
+    // fade in images
+    images.forEach((img, i) => {
+      setTimeout(() => img.classList.add("visible"), i * 400);
     });
-  }
+
+    // happy message
+    setTimeout(() => {
+      alert("✨🌸 Dear Pallavi, Happy Birthday! 🌸✨\nMay your day sparkle with joy and love! 💖");
+    }, 750);
+  });
 </script>
 
 </body>
 </html>
-
-
-
