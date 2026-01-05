@@ -8,65 +8,72 @@
   @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;600&display=swap');
 
   body {
-    margin: 0;
-    padding: 0;
+    margin:0; padding:0;
     background: linear-gradient(135deg, #ffe6f0, #ffdee9);
-    font-family: 'Poppins', sans-serif;
-    text-align: center;
-    overflow: hidden;
-    color: #d6336c;
+    text-align:center;
+    font-family:'Poppins', sans-serif;
+    overflow:hidden;
+    color:#d6336c;
   }
-
   h1 {
-    font-family: 'Great Vibes', cursive;
-    font-size: 4rem;
-    margin-top: 40px;
-    text-shadow: 2px 2px #ff9ad1;
+    font-family:'Great Vibes', cursive;
+    font-size:4rem;
+    margin-top:40px;
+    text-shadow:2px 2px #ff9ad1;
   }
-
+  #photo {
+    width:250px;
+    border-radius:15px;
+    border:5px solid #fff;
+    box-shadow:0 0 20px rgba(255,102,178,0.6);
+    margin:20px auto;
+    display:block;
+  }
+  #typewriter {
+    font-size:1.4rem;
+    margin-top:15px;
+    min-height:40px;
+    font-weight:600;
+    color:#8b216b;
+  }
   #magicBtn {
-    margin-top: 18px;
-    font-size: 26px;
-    padding: 16px 38px;
-    background: #ff66b2;
-    color: white;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    box-shadow: 0 0 15px rgba(255, 51, 153, 0.6);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    font-size:26px;
+    padding:16px 38px;
+    margin-top:18px;
+    background:#ff66b2;
+    color:white;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    box-shadow:0 0 15px rgba(255,51,153,0.6);
+    transition:0.2s;
   }
-  #magicBtn:hover {
-    transform: scale(1.12);
-    box-shadow: 0 0 25px rgba(255, 51, 153, 0.9);
+  #magicBtn:hover {transform:scale(1.12); box-shadow:0 0 25px rgba(255,51,153,0.9);}
+  canvas {position:absolute; top:0; left:0;}
+  
+  /* Balloon */
+  .balloon {
+    position:absolute;
+    bottom:-100px;
+    font-size:32px;
+    animation:rise 10s ease-in infinite;
   }
-
-  #birthdayImages img {
-    margin: 15px auto;
-    width: 250px;
-    max-width: 80%;
-    opacity: 0;
-    transition: opacity 1s ease;
-  }
-
-  .visible {
-    opacity: 1 !important;
+  @keyframes rise {
+    0% {transform:translateY(0);}
+    100% {transform:translateY(-1200px);}
   }
 </style>
 </head>
 <body>
 
-<h1>🎂 Happy Birthday, <span style="font-size:1.2em;">Pallavi</span>! 🎀</h1>
-<p style="font-size:1.3rem;">Tap for a magical birthday surprise! ✨</p>
+<h1>🎂 Happy Birthday, Pallavi! 🎀</h1>
 
-<button id="magicBtn">🎈 Tap for Magic! 🎈</button>
+<!-- Cute Photo -->
+<img id="photo" src="YOUR_PHOTO_URL_HERE" alt="You + Pallavi">
 
-<div id="birthdayImages">
-  <!-- lightweight transparent "Happy Birthday" image from a free PNG source -->
-  <img id="img1" src="https://png.pngtree.com/png-clipart/20241019/original/pngtree-3d-happy-birthday-gold-on-transparent-background-png-image_16406774.png" alt="Happy Birthday">
-  <img id="img2" src="https://png.pngtree.com/png-clipart/20220824/original/pngtree-happy-birthday-png-image_8488845.png" alt="Birthday Wishes">
-  <img id="img3" src="https://png.pngtree.com/png-clipart/20250103/original/pngtree-extravagant-golden-cake-for-birthday-parties-png-image_20007473.png" alt="Birthday Cake">
-</div>
+<div id="typewriter"></div>
+
+<button id="magicBtn">✨ Show Your Surprise! ✨</button>
 
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 
@@ -77,30 +84,51 @@
 <script>
   const btn = document.getElementById("magicBtn");
   const music = document.getElementById("bgMusic");
-  const images = [
-    document.getElementById("img1"),
-    document.getElementById("img2"),
-    document.getElementById("img3"),
+  const typeEl = document.getElementById("typewriter");
+
+  const messages = [
+    "To the most wonderful Pallavi…",
+    "Your smile lights up every room 💖",
+    "Today is your day — sparkle bright! ✨",
+    "Happy Birthday, Pallavi! 🎉💗"
   ];
+
+  function typeWriter(text, i, callback) {
+    if (i < text.length) {
+      typeEl.innerHTML += text.charAt(i);
+      setTimeout(() => typeWriter(text, i+1, callback), 50);
+    } else {
+      setTimeout(callback, 800);
+    }
+  }
+
+  function startTyping(index=0) {
+    if (index < messages.length) {
+      typeEl.innerHTML = "";
+      typeWriter(messages[index], 0, () => startTyping(index+1));
+    }
+  }
+
+  function createBalloon() {
+    const b = document.createElement("div");
+    b.className = "balloon";
+    b.style.left = Math.random()*100 + "vw";
+    b.innerText = "🎈";
+    b.style.animationDuration = (6 + Math.random()*4) + "s";
+    document.body.appendChild(b);
+    setTimeout(() => b.remove(), 10000);
+  }
 
   btn.addEventListener("click", function() {
     music.play();
+    confetti({ particleCount:300, spread:180, origin:{ y:0.8 } });
+    
+    // rising balloons
+    for (let i=0; i<20; i++) {
+      setTimeout(createBalloon, i*300);
+    }
 
-    confetti({
-      particleCount: 300,
-      spread: 180,
-      origin: { y: 0.7 }
-    });
-
-    // fade in images
-    images.forEach((img, i) => {
-      setTimeout(() => img.classList.add("visible"), i * 400);
-    });
-
-    // happy message
-    setTimeout(() => {
-      alert("✨🌸 Dear Pallavi, Happy Birthday! 🌸✨\nMay your day sparkle with joy and love! 💖");
-    }, 750);
+    startTyping();
   });
 </script>
 
